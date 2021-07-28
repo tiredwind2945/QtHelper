@@ -1,0 +1,1 @@
+# The widgets in this folder are used to setItemWidget of QListwidget or QTreeWidget.
