@@ -23,7 +23,7 @@
 **
 ****************************************************************************/
 
-
+#include <QDateTime>
 #include <QTextCodec>
 
 namespace NARI {
@@ -88,7 +88,6 @@ namespace NARI {
 
             return gbk->fromUnicode(tmp);
         }
-
         // gb18030 to utf-8
         static QByteArray Gbk2Utf8(const char * str)
         {
@@ -106,7 +105,6 @@ namespace NARI {
             std::string s(str);
             return s;
         }
-
         // const char * to std::string
         static const char * String2Char(const std::string & str)
         {
@@ -120,7 +118,6 @@ namespace NARI {
             QString string = QString(QLatin1String(str));
             return string;
         }
-
         // QString to char *
         static char * QString2Char(const QString & str)
         {
@@ -129,7 +126,6 @@ namespace NARI {
             s = ba.data();
             return s;
         }
-
 
 
         // remove all spaces/whitespace in QString
@@ -158,24 +154,43 @@ namespace NARI {
             return vec_split;
         }
 
+
         // remove the specified character from the string
         static void RemoveSpecifiedChar(std::string & str, char r_str)
         {
             str.erase(std::remove(str.begin(), str.end(), r_str), str.end());
         }
-
         // remove the suffix of the file name
         static std::string RemoveFileSuffix(const std::string & str)      // "test.jpg" -> "test"
         {
             auto name = str.substr(0, str.rfind("."));
-            retuen name;
+            return name;
         }
-
         // get suffix name of file name
         static std::string GetSuffixName(const std::string & str)        // "test.jpg" -> "jpg"
         {
-            auto suffix = str.substr(test_text.find(".") + 1);
+            auto suffix = str.substr(str.find(".") + 1);
             return suffix;
+        }
+
+
+        // get string of current time
+        static QString GetCurrentTime()
+        {
+            QDateTime curDateTime = QDateTime::currentDateTime();
+            return curDateTime.toString("yyyy-MM-dd hh:mm:ss");
+        }
+        // QDateTime to QString
+        static QString Time2String(const QDatetime & time)
+        {
+            auto string = time.toString("yyyy-MM-dd hh:mm:ss");
+            return string;
+        }
+        // QString to QDateTme
+        static QDateTime String2Time(const QString & str)
+        {
+            QDateTime time = QDateTime::fromString(str, "yyyy-MM-dd hh:mm:ss");
+            return time;
         }
     }
 }
