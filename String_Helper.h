@@ -25,6 +25,7 @@
 
 #include <QDateTime>
 #include <QTextCodec>
+#include <QTime>
 
 namespace NARI {
     namespace StringHelper {
@@ -181,11 +182,11 @@ namespace NARI {
             return curDateTime.toString("yyyy-MM-dd hh:mm:ss");
         }
         // QDateTime to QString
-        static QString Time2String(const QDatetime & time)
-        {
-            auto string = time.toString("yyyy-MM-dd hh:mm:ss");
-            return string;
-        }
+//        static QString Time2String(const QDatetime & time)
+//        {
+//            auto string = time.toString("yyyy-MM-dd hh:mm:ss");
+//            return string;
+//        }
         // QString to QDateTme
         static QDateTime String2Time(const QString & str)
         {

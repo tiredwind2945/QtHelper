@@ -49,7 +49,7 @@ void SideBar::paintEvent(QPaintEvent *event)
         QRect actionTextRect(QPoint(actionRect.width() / 2 - size.width() / 2, actionRect.bottom() - size.height() - 5), size);
         p.drawText(actionTextRect, Qt::AlignCenter, m_actions[i]->text());
 
-        QRect actionIconRect(0, action_y + 10, actionRect.width(), actionRect.height() - 2 * actionTextRect.height());
+        QRect actionIconRect(0, action_y + 6, actionRect.width(), actionRect.height() - 2 * actionTextRect.height());
         QIcon actionIcon(m_actions[i]->icon());
         actionIcon.paint(&p, actionIconRect);
 
@@ -69,20 +69,26 @@ void SideBar::addAction(QAction *action)
     update();
 }
 
-QAction *SideBar::addAction(const QString &text, const QIcon &icon)
+QAction *SideBar::addAction(const QString & text, const QString & icon, const QString & tooltip, const QString & shortcut)
 {
-    QAction *action = new QAction(icon, text, this);
+    QAction *action = new QAction(QIcon(icon), text, this);
+    action->setToolTip(tooltip);
+    action->setShortcut(shortcut);
     action->setCheckable(true);
     m_actions.push_back(action);
     update();
+
     return action;
 }
 
 void SideBar::setIndex(int index)
 {
+    if (m_ac_checked)
+        m_ac_checked->setChecked(false);
+
     m_index = index;
     m_ac_checked = m_actions[m_index];
-    m_ac_checked ->setChecked(true);
+    m_ac_checked->setChecked(true);
     update();
 }
 

@@ -33,7 +33,7 @@ public:
     ~SideBar();
 
     void addAction(QAction *action);
-    QAction *addAction(const QString &text, const QIcon &icon = QIcon());
+    QAction *addAction(const QString & text, const QString & icon, const QString & tooltip = "", const QString & shortcut = "");
     void setIndex(int index);
 
 signals:
