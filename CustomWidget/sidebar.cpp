@@ -1,4 +1,4 @@
-﻿#include "sidebar.h"
+#include "sidebar.h"
 
 #include <QDebug>
 #include <QEvent>
