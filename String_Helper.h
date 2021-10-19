@@ -193,5 +193,56 @@ namespace NARI {
             QDateTime time = QDateTime::fromString(str, "yyyy-MM-dd hh:mm:ss");
             return time;
         }
+        
+        //string 转换为time_t  时间格式为2014/03/28 18:25:26
+		time_t String2Time_t(const string string_time)
+		{
+			tm tm1;
+			memset(&tm1, 0, sizeof(tm1));
+			time_t time1;
+
+			sscanf_s(string_time.c_str(), "%d/%d/%d/ %d:%d:%d",
+				&(tm1.tm_year),
+				&(tm1.tm_mon),
+				&(tm1.tm_mday),
+				&(tm1.tm_hour),
+				&(tm1.tm_min),
+				&(tm1.tm_sec));
+
+			tm1.tm_year -= 1900;
+			tm1.tm_mon -= 1;
+
+			time1 = mktime(&tm1);
+
+			return time1;
+
+		}
+
+		//time_t转换为string  时间格式为2014/03/28 18:25:26
+		std::string Time_t2String(const time_t time_t_time)
+		{
+			char szTime[100] = {'\0'};
+
+			tm *pTm = new tm;
+			localtime_s(pTm, &time_t_time);
+			//pTm = localtime(&time_t_time);
+			pTm->tm_year += 1900;
+			pTm->tm_mon +=1;
+
+			sprintf_s(szTime, "%04d/%02d/%02d %02d:%02d:%02d",
+				pTm->tm_year,
+				pTm->tm_mon,
+				pTm->tm_mday,
+				pTm->tm_hour,
+				pTm->tm_min,
+				pTm->tm_sec);
+
+			string strTime = szTime;
+
+			delete pTm;
+			pTm = NULL;
+
+			return strTime;
+		}
     }
 }
